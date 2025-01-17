@@ -1,13 +1,16 @@
-const mongoose = require('mongoose')
-const mongoURI = "mongodb+srv://priyo1189:CfnGsUxkZCUznpGb@cluster0.juzwp.mongodb.net/IMS";
+const mongoose = require('mongoose');
+require('dotenv').config(); // Load environment variables
+
+const mongoURI = process.env.MONGO_URI; // Get Mongo URI from .env
 
 const connectToMongo = async () => {
   try {
     mongoose.set("strictQuery", false);
-    mongoose.connect(mongoURI);
+    await mongoose.connect(mongoURI); // Use the URI from .env
     console.log("Connected to Mongo Successfully!");
   } catch (error) {
-    console.log(error);
+    console.error("Error connecting to MongoDB:", error);
   }
 };
+
 module.exports = connectToMongo;
